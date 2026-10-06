@@ -27,7 +27,7 @@ con pfSense como único punto de tránsito entre segmentos.
 | pfSense OPT1 (IT) | 10.10.30.1 | /24 | Estática | Gateway |
 | pfSense OPT2 (DMZ) | 10.10.10.1 | /24 | Estática | Gateway |
 | pfSense OPT3 (SOC) | 10.10.40.1 | /24 | Estática | Gateway |
-| Servidor DMZ (Odoo + SafeLine + Zabbix) | 10.10.10.15 | /24 | Estática | Servicios |
+| Servidor DMZ (Odoo + SafeLine + Grafana) | 10.10.10.15 | /24 | Estática | Servicios |
 | Servidor Wazuh | 10.10.40.10 | /24 | Estática | SIEM |
 | Cliente RRHH | DHCP 10.10.20.100–200 | /24 | DHCP | Usuario |
 | Cliente IT | DHCP 10.10.30.100–200 | /24 | DHCP | Admin |
@@ -37,14 +37,15 @@ con pfSense como único punto de tránsito entre segmentos.
 | # | Origen | Destino | Puerto | Protocolo | Acción | Propósito |
 |---|---|---|---|---|---|---|
 | 1 | RRHH | SafeLine (10.10.10.15) | 6778 | TCP | Allow | Acceso a Odoo vía WAF |
-| 2 | IT | Zabbix (10.10.10.15) | 6779 | TCP | Allow | Monitoreo |
+| 2 | IT | Grafana (10.10.10.15) | 6779 | TCP | Allow | Monitoreo |
 | 3 | IT | pfSense | 443 | TCP | Allow | Gestión firewall |
 | 4 | IT | SafeLine | 6778 | TCP | Allow | Administración WAF |
-| 5 | RRHH | Zabbix | 6779 | TCP | **Deny** (regla temporal Allow) | Caso de colaboración |
+| 5 | RRHH | Grafana | 6779 | TCP | **Deny** (regla temporal Allow) | Caso de colaboración |
 | 6 | * | Odoo (10.10.10.15) | 8069 | TCP | **Deny** | Nunca expuesto directo |
 | 7 | Cualquier segmento | Wazuh (10.10.40.10) | 1514/1515 | TCP | Allow | Agentes Wazuh |
 | 8 | pfSense | Wazuh | 514 | UDP | Allow | Syslog del firewall |
 | 9 | WAN | Cualquiera | * | * | **Deny** (default) | Hardening |
+
 
 ## Reglas de filtrado por defecto
 

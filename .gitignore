@@ -1,0 +1,63 @@
+# === Secretos y datos sensibles ===
+.env
+.env.*
+!.env.example
+
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+
+credentials.json
+secrets.yaml
+secrets.yml
+secrets.json
+*-credentials.*
+*-secrets.*
+
+# === Backups sin sanitizar ===
+configs/*-raw.xml
+configs/*-backup-*.xml
+configs/pfsense-*.xml
+!configs/pfsense-config-sanitized.xml
+
+# === Logs ===
+*.log
+*.log.*
+evidencias/logs/*.raw
+evidencias/logs/*.tmp
+
+# === Docker ===
+*/postgres_data/
+*/pgdata/
+*/grafana_data/
+*/prometheus_data/
+docker-compose.override.yml
+
+# === Dependencias ===
+node_modules/
+venv/
+__pycache__/
+*.pyc
+
+# === Sistema ===
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.Trash-*
+
+# === Editores ===
+.vscode/
+.idea/
+*.sublime-*
+
+# === Temporales ===
+tmp/
+temp/
+*.tmp
+*.bak
